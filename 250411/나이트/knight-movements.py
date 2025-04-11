@@ -23,12 +23,13 @@ def bfs():
         for i in range(8):
             nx,ny = x+dx[i],y+dy[i]
             if can_go(nx,ny):
+                visited[ny][nx]=True
                 if nx==target_x and ny==target_y:
                     return trial+1
                 q.append((nx,ny,trial+1))
-                visited[ny][nx]=True
-    return -1
-if n==1:
-    print(0)
+                
+result = bfs()    
+if visited[r2-1][c2-1]==True:
+    print(result)
 else:
-    print(bfs())
+    print(-1)
