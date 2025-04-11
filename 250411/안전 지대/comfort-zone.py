@@ -24,7 +24,7 @@ def dfs(x, y, depth, visited):
 
 max_area = 0
 best_turn = 0
-for t in range(min_value-1, max_value):
+for t in range(min(min_value-1,1), max_value):
     visited = [[False for _ in range(m)] for _ in range(n)]
     areas = 0
     for i in range(n):
