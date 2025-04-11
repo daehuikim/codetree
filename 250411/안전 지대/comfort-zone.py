@@ -32,7 +32,7 @@ for t in range(max(1,min_value-1), max_value):
             if not visited[i][j] and grid[i][j] > t:
                 dfs(j,i,t,visited)
                 areas += 1
-    if areas >= max_area:
+    if areas > max_area:
         max_area = areas
         best_turn = t
 
