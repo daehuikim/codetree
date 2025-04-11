@@ -42,5 +42,5 @@ for t in range(1, max_value):
 if peak:
     print(turn, max_area)
 else:
-    print(t, max_area)
+    print(turn+1, max_area)
 
