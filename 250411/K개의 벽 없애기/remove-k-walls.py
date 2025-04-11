@@ -18,7 +18,7 @@ r1 -= 1
 c1 -= 1
 r2 -= 1
 c2 -= 1
-count = -1
+count = 10001
 # Please write your code here.
 dx = [0, 0, -1, 1]
 dy = [-1, 1, 0, 0]
@@ -46,7 +46,7 @@ def bfs(visited):
                 if nx == c2 and ny == r2:
                     return time + 1
                 q.append((nx, ny, time + 1))
-    return -1
+    return 10001
 
 
 def backtrack(current,index):
@@ -56,7 +56,7 @@ def backtrack(current,index):
         visited = [[False for _ in range(n)] for _ in range(n)]
         for item in current:
             grid[item[1]][item[0]] = 0
-        count = max(count, bfs(visited))
+        count = min(count, bfs(visited))
         for item in current:
             grid[item[1]][item[0]] = 1
         return
@@ -68,4 +68,7 @@ def backtrack(current,index):
 
 
 backtrack([],0)
-print(count)
+if count==10001:
+    print(-1)
+else:
+    print(count)
