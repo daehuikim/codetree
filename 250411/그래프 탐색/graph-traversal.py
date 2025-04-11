@@ -22,4 +22,4 @@ count=-1
 for item in visited:
     if item==True:
         count+=1
-print(count)
+print(max(count,0))
