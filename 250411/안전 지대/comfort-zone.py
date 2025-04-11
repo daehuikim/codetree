@@ -22,6 +22,8 @@ def dfs(x, y, depth, visited):
             dfs(nx, ny, depth, visited)
 
 max_area = 0
+turn = 0
+peak=False
 for t in range(1, max_value):
     visited = [[False for _ in range(m)] for _ in range(n)]
     areas = 0
@@ -33,8 +35,12 @@ for t in range(1, max_value):
     if max_area < areas:
         max_area = areas
     else:
-        t-=1
+        peak = True
+        turn=t-1
         break
 
-print(t, max_area)
+if peak:
+    print(turn, max_area)
+else:
+    print(t, max_area)
 
