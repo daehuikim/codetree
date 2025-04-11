@@ -3,6 +3,7 @@ import copy
 n, m = map(int, input().split())
 grid = [list(map(int, input().split())) for _ in range(n)]
 max_value = max(max(row) for row in grid)
+min_value = min(min(row) for row in grid)
 # Please write your code here.
 dx = [0, 0, -1, 1]
 dy = [-1, 1, 0, 0]
@@ -22,9 +23,8 @@ def dfs(x, y, depth, visited):
             dfs(nx, ny, depth, visited)
 
 max_area = 0
-turn = 0
-peak=False
-for t in range(1, max_value):
+best_turn = 0
+for t in range(min_value-1, max_value):
     visited = [[False for _ in range(m)] for _ in range(n)]
     areas = 0
     for i in range(n):
@@ -32,15 +32,9 @@ for t in range(1, max_value):
             if not visited[i][j] and grid[i][j] > t:
                 dfs(j,i,t,visited)
                 areas += 1
-    if max_area < areas:
+    if areas >= max_area:
         max_area = areas
-    else:
-        peak = True
-        turn=t-1
-        break
+        best_turn = t
 
-if peak:
-    print(turn, max_area)
-else:
-    print(turn+1, max_area)
+print(best_turn, max_area)
 
