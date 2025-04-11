@@ -5,15 +5,15 @@ visited = [[False for _ in range(m)] for _ in range(n)]
 dx=[0,1]
 dy=[1,0]
 def can_go(x,y):
-    if 0<=x<m and 0<=y<n and grid[y][x]==1:
+    if 0<=x<m and 0<=y<n and grid[y][x]==1 and not visited[y][x]:
         return True
     return False
 
 def dfs(x,y):
-    visited[y][x]=True
     for i in range(2):
         nx,ny = x+dx[i],y+dy[i]
         if can_go(nx,ny):
+            visited[ny][nx]=True
             dfs(nx,ny)
 
 dfs(0,0)
