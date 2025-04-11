@@ -14,6 +14,8 @@ def can_go(x,y):
     return False
 
 def bfs():
+    if r1==r2 and c1==c2:
+        return 0
     q = deque()
     q.append((c1-1,r1-1,0))
     visited[r1-1][c1-1]=True
@@ -27,9 +29,6 @@ def bfs():
                 if nx==target_x and ny==target_y:
                     return trial+1
                 q.append((nx,ny,trial+1))
+    return -1
                 
-result = bfs()    
-if visited[r2-1][c2-1]==True:
-    print(result)
-else:
-    print(-1)
+print(bfs())
