@@ -14,7 +14,7 @@ def dfs(x,y):
         nx,ny = x+dx[i],y+dy[i]
         if can_go(nx,ny):
             visited[ny][nx]=True
-            dfs(ny,nx)
+            dfs(nx,ny)
 
 dfs(0,0)
 
