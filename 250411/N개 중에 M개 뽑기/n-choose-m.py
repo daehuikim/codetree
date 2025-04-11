@@ -1,28 +1,19 @@
 N, M = map(int, input().split())
 ans=set()
 # Please write your code here.
-def check_diff(answer):
-    for i in range(len(answer)):
-        for j in range(len(answer)):
-            if i!=j and answer[i]==answer[j]:
-                return False
-    return True
-
-def choose(current):
+def choose(start,current):
     global ans
 
     if len(current)==M:
-        if check_diff(current):
-            key = tuple(sorted(current))
-            ans.add(key)
+        ans.add(tuple(current))
         return
     
-    for i in range(1,N+1):
+    for i in range(start,N+1):
         current.append(i)
-        choose(current)
+        choose(i+1,current)
         current.pop()
     return
 
-choose([])
+choose(1,[])
 for item in sorted(ans):
      print(' '.join(map(str, item)))
