@@ -133,5 +133,5 @@ def get_max_value(arr):
 value= get_max_value(grid)
 if value==729:
     value=727
-else:
-    print(value)
+    
+print(value)
