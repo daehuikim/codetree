@@ -67,13 +67,12 @@ def extract_path(parent,source_x,source_y,target_x,target_y):
         indicator_x, indicator_y = parent[indicator_y][indicator_x]
     return path
 
-nothing=False
+
 for t in range(1, K + 1):
     # set attacker
     a_x, a_y = set_attacker(last_attack)
     last_attack[a_y][a_x] = t
     if a_x==-1 and a_y==-1:
-        nothing=True
         break
 
     # set target
@@ -129,7 +128,5 @@ def get_max_value(arr):
             max_value = max(max_value, arr[i][j])
     return max_value
 
-if nothing:
-    print(0)
-else:
-    print(get_max_value(grid))
+
+print(get_max_value(grid))
