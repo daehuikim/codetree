@@ -7,7 +7,7 @@ last_target = [[0 for _ in range(M)] for _ in range(N)]
 dx=[1,0,-1,0]
 dy=[0,-1,0,1]
 
-def set_attacker():
+def set_attacker(last_attack):
     candidate_value = 5001
     a_x, a_y = -1, -1
     for i in range(N):
@@ -24,7 +24,7 @@ def set_attacker():
                     a_x, a_y = j, i
     return a_x, a_y
 
-def set_target():
+def set_target(last_target):
     candidate_value = -1
     t_x, t_y = -1, -1
     for i in range(N):
@@ -37,7 +37,7 @@ def set_target():
     for i in range(N):
         for j in range(M):
             if candidate_value == grid[i][j]:
-                if turn > last_attack[i][j]:
+                if turn > last_target[i][j]:
                     t_x, t_y = j, i
     return t_x, t_y
 
@@ -79,12 +79,12 @@ def extract_path(parent,source_x,source_y,target_x,target_y):
 
 for t in range(1, K + 1):
     # set attacker
-    a_x, a_y = set_attacker()
+    a_x, a_y = set_attacker(last_attack)
     last_attack[a_y][a_x] = t
     grid[a_y][a_x] += (N+M)
     damage = grid[a_y][a_x]
     # set target
-    t_x, t_y = set_target()
+    t_x, t_y = set_target(last_target)
     last_target[t_y][t_x] = t
     # BFS for laizer
     visited = [[False for _ in range(M)] for _ in range(N)]
@@ -112,7 +112,7 @@ for t in range(1, K + 1):
                     ny = N
                 nx %= M
                 ny %= N
-                
+
                 if i==t_y and j==t_x and grid[ny][nx] != 0:
                     grid[i][j] = max(0,grid[i][j]-damage)
                     engaged[ny][nx] = True
