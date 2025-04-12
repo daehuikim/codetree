@@ -20,16 +20,18 @@ def set_attacker(last_attack):
         a_x, a_y = -1, -1
     return a_x, a_y
 
-def set_target(last_attack):
+def set_target(last_attack, attacker_x, attacker_y):
     candidates = []
     for y in range(N):
         for x in range(M):
-            if grid[y][x] > 0:
+            if grid[y][x] > 0 and not (x == attacker_x and y == attacker_y):
                 candidates.append((-grid[y][x], last_attack[y][x], (x + y), x, x, y))
     candidates.sort()
-    _, _, _, _, t_x, t_y = candidates[0]
-    return t_x, t_y
-
+    if candidates:
+        _, _, _, _, t_x, t_y = candidates[0]
+        return t_x, t_y
+    else:
+        return -1, -1
 
 def can_go(x,y):
     if grid[y][x] != 0 and not visited[y][x]:
@@ -67,7 +69,6 @@ def extract_path(parent,source_x,source_y,target_x,target_y):
         indicator_x, indicator_y = parent[indicator_y][indicator_x]
     return path
 
-
 for t in range(1, K + 1):
     # set attacker
     a_x, a_y = set_attacker(last_attack)
@@ -76,7 +77,7 @@ for t in range(1, K + 1):
         break
 
     # set target
-    t_x, t_y = set_target(last_attack)
+    t_x, t_y = set_target(last_attack,a_x, a_y)
     # BFS for laizer
     visited = [[False for _ in range(M)] for _ in range(N)]
     parent = [[(-1,-1) for _ in range(M)] for _ in range(N)]
@@ -108,13 +109,14 @@ for t in range(1, K + 1):
                     ny = N-1
                 nx %= M
                 ny %= N
-                if ny==t_y and nx==t_x and grid[ny][nx] != 0:
-                    grid[ny][nx] = max(0,grid[ny][nx]-damage)
-                    engaged[ny][nx] = True
-                elif (ny!=t_y or nx!=t_x) and grid[ny][nx] != 0:
+                if nx == t_x and ny == t_y:
+                    continue
+
+                elif (ny != t_y or nx != t_x) and grid[ny][nx] != 0 and not (nx == a_x and ny == a_y):
                     grid[ny][nx] = max(0,grid[ny][nx]-(damage//2))
                     engaged[ny][nx] = True
-
+        grid[t_y][t_x] = max(0, grid[t_y][t_x] - damage)
+        engaged[t_y][t_x] = True
     for i in range(N):
         for j in range(M):
             if not engaged[i][j] and grid[i][j] != 0:
