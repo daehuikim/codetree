@@ -71,11 +71,11 @@ def extract_path(parent,source_x,source_y,target_x,target_y):
 
 for t in range(1, K + 1):
     # set attacker
+    alive = sum(1 for i in range(N) for j in range(M) if grid[i][j] != 0)
+    if alive <= 1:
+        break
     a_x, a_y = set_attacker(last_attack)
     last_attack[a_y][a_x] = t
-    if a_x==-1 and a_y==-1:
-        break
-
     # set target
     t_x, t_y = set_target(last_attack,a_x, a_y)
     # BFS for laizer
@@ -121,6 +121,7 @@ for t in range(1, K + 1):
         for j in range(M):
             if not engaged[i][j] and grid[i][j] != 0:
                 grid[i][j]+=1
+
 
 
 def get_max_value(arr):
