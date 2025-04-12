@@ -95,7 +95,7 @@ for t in range(1, K + 1):
     signal = bfs(a_x,a_y,t_x,t_y,visited,parent)
     if signal == 0:
         valid_path = extract_path(parent,a_x,a_y,t_x,t_y)
-        for i in range(len(valid_path)):
+        for i in range(1,len(valid_path)):
             x,y=valid_path[i]
             engaged[y][x] = True
             if i == len(valid_path) - 1:
