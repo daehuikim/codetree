@@ -1,7 +1,7 @@
 N = int(input())
 
 # Please write your code here.
-memo = [-1 for _ in range(N)]
+memo = [-1 for _ in range(N+1)]
 memo[0]=1
 memo[1]=1
 for i in range(2,N):
