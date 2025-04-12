@@ -113,12 +113,7 @@ for t in range(1, K + 1):
         for j in range(M):
             if not engaged[i][j] and grid[i][j] != 0:
                 grid[i][j]+=1
-    for item in grid:
-        print(item)
-    print("")
-    for item in last_attack:
-        print(item)
-    print("----")
+
 
 def get_max_value(arr):
     max_value = -1
