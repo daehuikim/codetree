@@ -12,23 +12,23 @@ def set_attacker(last_attack):
     for y in range(N):
         for x in range(M):
             if grid[y][x] > 0:
-                candidates.append((grid[y][x], -last_attack[y][x], -(x + y), -y, x, y))
+                candidates.append((grid[y][x], -last_attack[y][x], -(x + y), -y, x))
     candidates.sort()
     if candidates:
-        _, _, _, _, a_x, a_y = candidates[0]
+        _, _, _,  a_y, a_x = candidates[0]
     else:
         a_x, a_y = -1, -1
-    return a_x, a_y
+    return a_x, -a_y
 
 def set_target(last_attack, attacker_x, attacker_y):
     candidates = []
     for y in range(N):
         for x in range(M):
             if grid[y][x] > 0 and not (x == attacker_x and y == attacker_y):
-                candidates.append((-grid[y][x], last_attack[y][x], (x + y), y, x, y))
+                candidates.append((-grid[y][x], last_attack[y][x], (x + y), y, x,))
     candidates.sort()
     if candidates:
-        _, _, _, _, t_x, t_y = candidates[0]
+        _, _, _, t_y, t_x = candidates[0]
         return t_x, t_y
     else:
         return -1, -1
