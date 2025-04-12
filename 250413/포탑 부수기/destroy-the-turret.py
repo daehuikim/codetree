@@ -14,7 +14,10 @@ def set_attacker(last_attack):
             if grid[y][x] > 0:
                 candidates.append((grid[y][x], -last_attack[y][x], -(x + y), -x, x, y))
     candidates.sort()
-    _, _, _, _, a_x, a_y = candidates[0]
+    if candidates:
+        _, _, _, _, a_x, a_y = candidates[0]
+    else:
+        a_x, a_y = -1, -1
     return a_x, a_y
 
 def set_target(last_attack):
@@ -64,10 +67,14 @@ def extract_path(parent,source_x,source_y,target_x,target_y):
         indicator_x, indicator_y = parent[indicator_y][indicator_x]
     return path
 
+nothing=False
 for t in range(1, K + 1):
     # set attacker
     a_x, a_y = set_attacker(last_attack)
     last_attack[a_y][a_x] = t
+    if a_x==-1 and a_y==-1:
+        nothing=True
+        break
 
     # set target
     t_x, t_y = set_target(last_attack)
@@ -122,5 +129,7 @@ def get_max_value(arr):
             max_value = max(max_value, arr[i][j])
     return max_value
 
-
-print(get_max_value(grid))
+if nothing:
+    print(0)
+else:
+    print(get_max_value(grid))
